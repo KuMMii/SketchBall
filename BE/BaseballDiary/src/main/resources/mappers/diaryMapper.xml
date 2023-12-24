@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diary.model.dao.DiaryDao">
+
+	<select id="selectThisWeekDiaryDate" resultType="String">
+		SELECT DISTINCT
+		gamedate FROM diary
+		WHERE userId=#{userId} AND
+		(gamedate BETWEEN
+		STR_TO_DATE(#{startDate},'%Y%m%d')
+		AND
+		STR_TO_DATE(#{finishDate},'%Y%m%d'))
+	</select>
+
+	<select id="selectTodaysDiary" resultType="Diary">
+		SELECT d.*,
+		t1.teamName as homeTeamName, t2.teamName as awayTeamName, t3.teamImg
+		as homeTeamImg, t4.teamImg as awayTeamImg FROM diary d
+		LEFT JOIN teams
+		t1 ON d.homeTeam=t1.teamId
+		LEFT JOIN teams t2 ON d.awayTeam=t2.teamId
+		LEFT JOIN teams t3 ON
+		d.homeTeam=t3.teamId
+		LEFT JOIN teams t4 ON
+		d.awayTeam=t4.teamId
+		WHERE
+		userId=#{userId} AND
+		STR_TO_DATE(#{date},'%Y%m%d')= gamedate
+		ORDER BY diaryId DESC
+	</select>
+
+	<select id="selectDiaryDetail" resultType="Diary">
+		SELECT diary.*,
+		(SELECT teamName FROM teams WHERE diary.homeTeam=teams.teamId)
+		homeTeamName,
+		(SELECT teamName FROM teams WHERE
+		diary.awayTeam=teams.teamId) awayTeamName,
+		(SELECT teamImg FROM teams
+		WHERE diary.homeTeam=teams.teamId)
+		homeTeamImg,
+		(SELECT teamImg FROM
+		teams WHERE diary.awayTeam=teams.teamId) awayTeamImg
+		FROM diary
+		WHERE
+		userId=#{userId} and diaryId=#{diaryId};
+	</select>
+
+	<insert id="insertDiary">
+		INSERT INTO diary(userId, title, content, img,
+		gamedate, gametime,
+		isStadium, location,
+		homeTeam, homeScore, awayTeam,
+		awayScore, result)
+		VALUES(#{userId},
+		#{diary.title},#{diary.content},#{diary.img},#{diary.gamedate},#{diary.gametime},#{diary.isStadium},#{diary.location},
+		#{diary.homeTeam},#{diary.homeScore},#{diary.awayTeam},#{diary.awayScore},#{diary.result})
+	</insert>
+
+
+	<update id="updateDiary">
+		UPDATE diary
+		SET title=#{diary.title},
+		content=#{diary.content},
+		img=#{diary.img},
+		gamedate=#{diary.gamedate},
+		gametime=#{diary.gametime},
+		isStadium=#{diary.isStadium},
+		location=#{diary.location},
+		homeTeam=#{diary.homeTeam},
+		homeScore=#{diary.homeScore},
+		awayTeam=#{diary.awayTeam},
+		awayScore=#{diary.awayScore},
+		result=#{diary.result}
+		WHERE
+		userId=#{userId} and diaryId=#{diary.diaryId}
+	</update>
+
+	<delete id="deleteDiary">
+		DELETE FROM diary WHERE userId=#{userId} and
+		diaryId=#{diaryId}
+	</delete>
+
+
+
+	<select id="selectDiaryList" resultType="Diary">
+		SELECT diaryId, img, title, gamedate FROM diary
+		WHERE userId=#{userId}
+		<if test="period == 'all'"></if>
+		<if test="period != 'all'">
+			AND DATE_FORMAT(gamedate,'%Y-%m')=#{period}
+
+		</if>
+		ORDER BY gamedate DESC, diaryId DESC
+	</select>
+
+	<select id="selectVictoryFairy" resultType="VictoryFairy">
+		SELECT
+		d.userId,
+		u.nickname,
+		date_format(NOW(),'%Y') as year,
+		COUNT(CASE WHEN d.userId=#{userId} AND d.isStadium=1 THEN 1 END) as totalCount,
+		COUNT(CASE WHEN d.isStadium=1 AND d.result=1 THEN 1 END) as
+		winningCount,
+		ROUND((COUNT(CASE WHEN d.isStadium=1 AND d.result=1 THEN 1 END) / COUNT(CASE WHEN
+		d.userId=#{userId} AND d.isStadium=1 THEN 1 END)) * 100, 1) as percent
+		FROM
+		user u
+		LEFT JOIN
+		diary d ON u.id = d.userId AND d.userId = #{userId} AND
+		date_format(d.gamedate,'%Y') = date_format(NOW(),'%Y')
+		WHERE
+		u.id = #{userId};
+
+	</select>
+
+
+</mapper>

@@ -1,0 +1,157 @@
+.div-fieldset fieldset {
+  /* height: 778px; */
+  overflow: scroll;
+}
+
+/* 라벨(span임) */
+span {
+  font-weight: bold;
+  margin-left: 5px;
+  margin-bottom: 4px;
+}
+
+/* 뒤로가기 버튼 */
+.btn-back {
+  top: 0px;
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* 전체 */
+.div-fieldset {
+  margin-top: 20px;
+}
+
+/* 사진 */
+.div-img {
+  display: flex;
+}
+.div-img label {
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 10px;
+}
+.preview {
+  width: 70px;
+  height: 70px;
+  border: 1px dotted #d9d9d9;
+  margin-left: 10px;
+}
+
+/* 라디오 버튼 css */
+.div-result {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.div-isStadium {
+  width: 31%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.div-result active {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-isStadium active {
+  width: 31%;
+  display: flex;
+  justify-content: space-between;
+}
+/* 결과 */
+.result {
+  margin-top: 10px;
+}
+
+/* 스코어보드 */
+.div-score {
+  margin-top: 5px;
+}
+.div-score > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d9d9d9;
+  border-radius: 16px;
+  width: 100%;
+  height: 100px;
+}
+
+.div-score > div:first-of-type > div:first-of-type {
+  width: 390px;
+  height: 70px;
+  /* border: 1px solid; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box {
+  /* border: 1px solid blue; */
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  background-color: white;
+}
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+
+.score {
+  /* border: 1px dotted red; */
+  width: 100px;
+  height: 70px;
+  text-align: center;
+  line-height: 70px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* 점수 입력 */
+.div-write-score {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+/* 날짜 */
+.date {
+  margin-top: 10px;
+}
+/* 직관 */
+
+/* 장소 */
+#icon-location {
+  position: absolute;
+  bottom: 9px;
+  left: 10px;
+
+  height: 10px;
+}
+
+/* 등록 버튼 */
+.div-regbtn {
+  position: fixed;
+  width: 435px;
+  bottom: 19px;
+}

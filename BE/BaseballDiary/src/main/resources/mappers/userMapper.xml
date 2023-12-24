@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diary.model.dao.UserDao">
+	<select id="selectUser" parameterType="String" resultType="User">
+		SELECT *, (SELECT teamName FROM teams WHERE team = teamId) as teamName FROM user
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO user
+		VALUES(#{id}, #{pw}, #{name}, #{nickname}, #{team}, #{statusMessage}, #{profileImg})
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET pw = #{pw}, nickname = #{nickname}, team = #{team}, statusMessage=#{statusMessage}, profileImg = #{profileImg}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM user WHERE id = #{id}
+	</delete>
+	
+	<select id="selectProfile" parameterType="String" resultType="User">
+		SELECT nickname, team, statusMessage, profileImg
+		FROM user
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectUserList" resultType="User">
+		SELECT * FROM user
+	</select>
+	
+	
+</mapper>
