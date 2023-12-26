@@ -149,7 +149,7 @@ public class DiaryController {
 			if (img != null && img.getSize() > 0) {
 
 				Path baseDirectory = Paths
-						.get("C:/PJT-FINAL-E-KJE-JHA/vue-baseballDiary-project/src/assets/pic/userpic");
+						.get("C:/SketchBall/vue-baseballDiary-project/src/assets/pic/userpic");
 
 				// Extracting file name and creating a new directory with the same name
 				String fileName = img.getOriginalFilename();
@@ -192,7 +192,7 @@ public class DiaryController {
 			if (img != null && img.getSize() > 0) {
 
 				Path baseDirectory = Paths
-						.get("C:/PJT-FINAL-E-KJE-JHA/vue-baseballDiary-project/src/assets/pic/userpic");
+						.get("C:/SketchBall/vue-baseballDiary-project/src/assets/pic/userpic");
 
 				// Extracting file name and creating a new directory with the same name
 				String fileName = img.getOriginalFilename();
