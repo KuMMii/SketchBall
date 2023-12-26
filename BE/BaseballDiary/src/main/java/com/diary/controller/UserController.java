@@ -185,6 +185,7 @@ public class UserController {
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
 
+	//uuid
 	private String uuidFileName(String oriFileName) {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString() + '_' + oriFileName;
